@@ -5,7 +5,7 @@
 
 Fabulous Bash Package Manager 
 Package manager for SnackLinux
-https://bitbucket.org/snacsnoc/fbpkg
+https://github.com/snacsnoc/fbpkg
 
 
 The MIT License (MIT)
@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '
 
-VERSION=0.1.5
+VERSION=0.1.6
 
 WGET=/usr/bin/wget
 TAR=/bin/tar
@@ -129,6 +129,7 @@ else
                         echo -e "remove <package> \t\t remove a package"
                         echo -e "upgrade \t\t\t check for updated packages"
                         echo -e "update \t\t\t\t update installable packages list "
+                        echo -e "search <package>\t\t search for a package"
                         echo " "
                         echo "environment variables:"
                         echo -e "FB_INSTALL_PATH \t\t Install packages to FB_INSTALL_PATH rather than /"
@@ -138,7 +139,7 @@ else
                 -v|--version)
                         echo "fbpkg $VERSION"
                         echo " "
-                        echo "Copyright (c) 2014 Easton Elliott <easton@geekness.eu>"
+                        echo "Copyright (c) 2015 Easton Elliott <easton@geekness.eu>"
                         exit 
                         ;;                        
 
@@ -268,7 +269,7 @@ else
 
                         
                         # First, we get a list of the installed packages and format it so it's like packageslist file
-                        ls /var/lib/fbpkg/installed | sed -r 's/(.+[a-z])-([0-9].+)/\1 \2/g' > /tmp/installed_packages
+                        ls /var/lib/fbpkg/installed | sed -r 's/([a-z0-9-]+)-([0-9].+)/\1 \2/g' > /tmp/installed_packages
 
                         # We diff the installed packages and the packageslist from the repository and check if it spits out anything  
 
@@ -307,6 +308,39 @@ else
                         shift
                         ;;
                 
+
+                search)
+                        # Check if we have something to search for
+                        if [ $2 ]; then
+
+                        # Check if we have a packageslist file to read from
+                            if [ -e $PACKAGES_PATH ]; then
+
+                                # Use grep to check if the package we want to install is in the package list
+                                if ! grep -q "$2"  $PACKAGES_PATH; then
+                                    echo "$2 not found in package list"
+                                    exit
+                                else
+                                    
+                                    grep -i "$2"  $PACKAGES_PATH
+                                    exit 
+
+                                fi
+                                
+                            else
+                                echo "Please run fbpkg update first"
+                                exit        
+                            fi
+                        else
+                            echo "No package defined"
+                            exit
+                        fi  
+
+                        shift
+                        ;;
+
+
+
                 "")
                         
                         echo "Invalid argument, please run fbpkg --help"
