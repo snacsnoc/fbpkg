@@ -16,7 +16,7 @@ Install software
 
 List installable software
 
-`cat /var/lib/fbpkg/packageslist`
+`fbpkg search tetris`
 
 Upgrade package (currently supports one package at a time)
 
