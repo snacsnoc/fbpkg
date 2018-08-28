@@ -4,7 +4,7 @@ fbpkg
 Package manager for [SnackLinux](http://snacklinux.org)
 
 
-####Usage
+#### Usage
 
 Update list of installable packages
 
