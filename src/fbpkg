@@ -35,7 +35,7 @@ VERSION=0.1.6
 
 WGET=/usr/bin/wget
 TAR=/bin/tar
-REPO_URL=http://snacklinux.org/repo/pub
+REPO_URL=http://snacklinux.geekness.eu/repo/pub
 PACKAGES_PATH=/var/lib/fbpkg/packageslist
 DIFF=/usr/bin/diff
 
