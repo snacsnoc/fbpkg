@@ -10,7 +10,7 @@ https://github.com/snacsnoc/fbpkg
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Easton Elliott
+Copyright (c) 2022 Easton Elliott
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '
 
-VERSION=0.1.6
+VERSION=0.1.7
+ARCH=$(uname -m)
 
 WGET=/usr/bin/wget
 TAR=/bin/tar
@@ -40,6 +41,10 @@ PACKAGES_PATH=/var/lib/fbpkg/packageslist
 DIFF=/usr/bin/diff
 
 
+if [ ${ARCH} == 'aarch64' ] ||  [ ${ARCH} == 'x86_64' ]; then
+REPO_URL+=/$ARCH
+fi
+echo $REPO_URL
 
 check_if_installed(){
 
@@ -139,7 +144,7 @@ else
                 -v|--version)
                         echo "fbpkg $VERSION"
                         echo " "
-                        echo "Copyright (c) 2015 Easton Elliott <easton@geekness.eu>"
+                        echo "Copyright (c) 2022 Easton Elliott <easton@geekness.eu>"
                         exit 
                         ;;                        
 
@@ -211,7 +216,6 @@ else
                                     exit
                                 fi
 
-
                                 exit 
 
                                 
@@ -267,7 +271,6 @@ else
                         # This currently doesn't work to upgrade multiple packages. But it works for single packages!
 
 
-                        
                         # First, we get a list of the installed packages and format it so it's like packageslist file
                         ls /var/lib/fbpkg/installed | sed -r 's/([a-z0-9-]+)-([0-9].+)/\1 \2/g' > /tmp/installed_packages
 
@@ -338,7 +341,6 @@ else
 
                         shift
                         ;;
-
 
 
                 "")
