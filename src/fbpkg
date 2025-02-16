@@ -31,7 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 '
 
-VERSION=0.1.7
+VERSION=0.1.8
 ARCH=$(uname -m)
 
 WGET=/usr/bin/wget
@@ -44,7 +44,6 @@ DIFF=/usr/bin/diff
 if [ ${ARCH} == 'aarch64' ] ||  [ ${ARCH} == 'x86_64' ]; then
 REPO_URL+=/$ARCH
 fi
-echo $REPO_URL
 
 check_if_installed(){
 
@@ -120,7 +119,7 @@ else
         fi        
 
 
-	while test $# -ge 0; do
+	while test $# -gt 0; do
 
         case "$1" in
 
@@ -144,7 +143,7 @@ else
                 -v|--version)
                         echo "fbpkg $VERSION"
                         echo " "
-                        echo "Copyright (c) 2022 Easton Elliott <easton@geekness.eu>"
+                        echo "Copyright (c) 2025 Easton Elliott <easton@geekness.eu>"
                         exit 
                         ;;                        
 
@@ -186,8 +185,8 @@ else
                                 # Check if the package is already installed and prompt user to reinstall
                                 check_if_installed $package_name $package_version
 
-                                echo "Installing version $package_version"
-
+                                echo "Found version $package_version"
+				echo "Downloading from repository $REPO_URL"
                                 # Download the package
                                 $WGET $REPO_URL/$package_name-$package_version.tgz -O /tmp/$package_name-$package_version.tgz
 
@@ -343,7 +342,7 @@ else
                         ;;
 
 
-                "")
+                *)
                         
                         echo "Invalid argument, please run fbpkg --help"
                         exit
