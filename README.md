@@ -1,7 +1,7 @@
 fbpkg
 ========
 
-Package manager written in Bash for [SnackLinux](http://snacklinux.org)
+Package manager written in Bash for [SnackLinux](http://snacklinux.geekness.eu)
 
 
 Repository URL: http://snacklinux.geekness.eu/repo/pub
